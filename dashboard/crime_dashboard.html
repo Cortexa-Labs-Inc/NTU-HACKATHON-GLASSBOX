@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrimeGlassbox — Self-Healing Surveillance AI</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card2: #1a2235;
+    --border: #1e2d45;
+    --accent: #3b82f6;
+    --accent2: #6366f1;
+    --green: #10b981;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #6b7280;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif;
+         font-size: 14px; line-height: 1.6; }
+  h1 { font-size: 1.6rem; font-weight: 700; }
+  h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: .03em; }
+  h3 { font-size: .9rem; font-weight: 600; color: var(--muted); text-transform: uppercase;
+       letter-spacing: .08em; }
+
+  /* Layout */
+  header { padding: 1.2rem 2rem; border-bottom: 1px solid var(--border);
+           display: flex; align-items: center; gap: 1.2rem;
+           background: linear-gradient(135deg, #0d1630, #111827); }
+  header .badge { background: var(--accent); color: #fff; font-size: .7rem;
+                  padding: .2rem .55rem; border-radius: 999px; font-weight: 700;
+                  letter-spacing: .05em; }
+  .subtitle { color: var(--muted); font-size: .85rem; }
+  main { padding: 1.5rem 2rem; display: grid; gap: 1.2rem;
+         max-width: 1400px; margin: 0 auto; }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border);
+          border-radius: 12px; padding: 1.2rem 1.4rem; }
+  .card-header { display: flex; justify-content: space-between; align-items: center;
+                 margin-bottom: .9rem; }
+
+  /* Metric strip */
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: .9rem; }
+  .metric { background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
+             padding: .9rem 1.1rem; text-align: center; }
+  .metric .val { font-size: 1.7rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .metric .lbl { color: var(--muted); font-size: .75rem; margin-top: .15rem; }
+  .green { color: var(--green); }
+  .red   { color: var(--red);   }
+  .amber { color: var(--amber); }
+  .blue  { color: var(--accent); }
+  .indigo{ color: var(--accent2); }
+
+  /* Two-column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Cluster cards */
+  .cluster-list { display: flex; flex-direction: column; gap: .7rem; }
+  .cluster-card { background: var(--card2); border: 1px solid var(--border);
+                  border-radius: 8px; padding: .9rem 1.1rem; cursor: pointer;
+                  transition: border-color .2s; }
+  .cluster-card:hover { border-color: var(--accent); }
+  .cluster-card.expanded { border-color: var(--accent2); }
+  .cluster-top { display: flex; justify-content: space-between; align-items: center; }
+  .cluster-id { background: var(--accent2); color: #fff; border-radius: 6px;
+                padding: .15rem .5rem; font-size: .75rem; font-weight: 700; }
+  .error-badge { font-size: .72rem; padding: .15rem .45rem; border-radius: 999px; font-weight: 600; }
+  .fp { background: #7f1d1d22; color: var(--red); border: 1px solid #7f1d1d44; }
+  .fn { background: #14532d22; color: var(--green); border: 1px solid #14532d44; }
+  .mc { background: #1e3a5f22; color: var(--accent); border: 1px solid #1e3a5f44; }
+  .cluster-detail { margin-top: .7rem; display: none; border-top: 1px solid var(--border);
+                    padding-top: .7rem; }
+  .cluster-card.expanded .cluster-detail { display: block; }
+
+  /* Blame bars */
+  .blame-bar-wrap { margin: .5rem 0; }
+  .blame-row { display: flex; align-items: center; gap: .6rem; margin: .25rem 0; }
+  .blame-label { min-width: 100px; font-size: .78rem; color: var(--muted); }
+  .blame-track { flex: 1; background: #1e2d45; border-radius: 3px; height: 8px; overflow: hidden; }
+  .blame-fill  { height: 100%; border-radius: 3px; background: var(--accent2);
+                 transition: width .4s; }
+  .blame-val   { font-size: .75rem; font-family: var(--mono); min-width: 48px; text-align: right; }
+
+  /* Recipe block */
+  .recipe-block { background: #0d1220; border: 1px solid var(--border); border-radius: 6px;
+                  padding: .6rem .8rem; font-family: var(--mono); font-size: .75rem;
+                  color: #94a3b8; white-space: pre-wrap; overflow-x: auto; }
+
+  /* Chart containers */
+  .chart-wrap { position: relative; height: 220px; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { text-align: left; padding: .5rem .7rem; color: var(--muted); font-weight: 600;
+       border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .05em; }
+  td { padding: .5rem .7rem; border-bottom: 1px solid #1a2235; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #1a2235; }
+
+  /* Inference panel */
+  .infer-area { display: flex; flex-direction: column; gap: .6rem; }
+  textarea { width: 100%; background: #0d1220; border: 1px solid var(--border);
+             border-radius: 6px; color: var(--text); font-family: var(--mono);
+             font-size: .78rem; padding: .6rem .8rem; resize: vertical;
+             min-height: 80px; outline: none; }
+  textarea:focus { border-color: var(--accent); }
+  .btn { background: var(--accent); color: #fff; border: none; border-radius: 6px;
+         padding: .5rem 1.1rem; font-size: .82rem; font-weight: 600; cursor: pointer;
+         transition: background .15s; }
+  .btn:hover { background: #2563eb; }
+  .btn.amber { background: var(--amber); }
+  .btn.amber:hover { background: #d97706; }
+  .btn.green { background: var(--green); }
+  .btn.green:hover { background: #059669; }
+  .btn.sm { padding: .35rem .75rem; font-size: .75rem; }
+  .result-box { background: #0d1220; border: 1px solid var(--border); border-radius: 6px;
+                padding: .7rem .9rem; font-family: var(--mono); font-size: .78rem;
+                color: #94a3b8; min-height: 56px; white-space: pre-wrap; }
+  .warning-box { background: #1c0e0a; border: 1px solid #7f1d1d55; border-radius: 6px;
+                 padding: .7rem .9rem; color: var(--red); font-size: .82rem; }
+  .ok-box     { background: #062018; border: 1px solid #14532d55; border-radius: 6px;
+                padding: .7rem .9rem; color: var(--green); font-size: .82rem; }
+
+  /* Status dot */
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: .35rem; }
+  .dot.green { background: var(--green); }
+  .dot.amber { background: var(--amber); }
+  .dot.red   { background: var(--red); }
+
+  /* Pill tag */
+  .tag { font-size: .7rem; padding: .1rem .4rem; border-radius: 999px; font-weight: 600;
+         background: #1e3a5f; color: var(--accent); border: 1px solid #2d5a8e44; }
+
+  /* Loader */
+  .loader { display: inline-block; width: 14px; height: 14px; border: 2px solid var(--border);
+            border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Toast */
+  #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: var(--card2);
+           border: 1px solid var(--border); border-radius: 8px; padding: .7rem 1rem;
+           font-size: .82rem; display: none; z-index: 999; max-width: 320px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>CrimeGlassbox <span class="badge">SELF-HEALING</span></h1>
+    <div class="subtitle">Interpretable anomaly detection · self-healing via Gaussian perturbation · CUHK Avenue</div>
+  </div>
+  <div style="margin-left:auto;display:flex;gap:.6rem;align-items:center;">
+    <span id="api-status" style="font-size:.78rem;color:var(--muted);">connecting…</span>
+    <button class="btn sm" onclick="refreshAll()">Refresh</button>
+    <button class="btn sm amber" onclick="triggerHeal()">Run Self-Heal</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Metrics strip -->
+  <section class="card">
+    <div class="card-header"><h3>Model Metrics</h3><span id="model-name" style="color:var(--muted);font-size:.78rem;"></span></div>
+    <div class="metrics" id="metrics-strip">
+      <div class="metric"><div class="val blue" id="m-auc">—</div><div class="lbl">Test AUC (OvR)</div></div>
+      <div class="metric"><div class="val green" id="m-acc">—</div><div class="lbl">Test Accuracy</div></div>
+      <div class="metric"><div class="val amber" id="m-failures">—</div><div class="lbl">Failure Clusters</div></div>
+      <div class="metric"><div class="val indigo" id="m-classes">—</div><div class="lbl">Crime Classes</div></div>
+      <div class="metric"><div class="val" id="m-train">—</div><div class="lbl">Training Samples</div></div>
+      <div class="metric"><div class="val" id="m-chunks">—</div><div class="lbl">Feature Chunks</div></div>
+    </div>
+  </section>
+
+  <!-- Failure clusters + healing chart -->
+  <div class="two-col">
+
+    <!-- Failure Clusters -->
+    <section class="card">
+      <div class="card-header">
+        <h3>Failure Mode Clusters <span id="cluster-count" class="tag">0</span></h3>
+        <button class="btn sm" onclick="loadFailures()">Refresh</button>
+      </div>
+      <div id="cluster-list" class="cluster-list">
+        <div style="color:var(--muted);font-size:.82rem;">Loading failure clusters…</div>
+      </div>
+    </section>
+
+    <!-- Self-Healing chart -->
+    <section class="card">
+      <div class="card-header">
+        <h3>Self-Healing Progress</h3>
+        <span id="heal-status" style="font-size:.78rem;color:var(--muted);"></span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="heal-chart"></canvas>
+      </div>
+      <div style="margin-top:.7rem;" id="heal-summary" class="result-box">No healing rounds run yet. Click "Run Self-Heal" to start.</div>
+    </section>
+
+  </div>
+
+  <!-- Chunk attribution chart + perturbation recipe -->
+  <div class="two-col">
+
+    <section class="card">
+      <div class="card-header">
+        <h3>Cluster Chunk Attribution</h3>
+        <span style="font-size:.75rem;color:var(--muted);">Blame score per feature chunk</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="blame-chart"></canvas>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h3>Perturbation Recipe</h3>
+        <span style="font-size:.75rem;color:var(--muted);">Data generation instructions per cluster</span>
+      </div>
+      <div id="recipe-list" style="display:flex;flex-direction:column;gap:.5rem;max-height:260px;overflow-y:auto;">
+        <div style="color:var(--muted);font-size:.82rem;">Loading…</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Failure log table -->
+  <section class="card">
+    <div class="card-header"><h3>Failure Cluster Detail Table</h3></div>
+    <div style="overflow-x:auto;">
+      <table id="failure-table">
+        <thead>
+          <tr>
+            <th>Cluster</th><th>Failures</th><th>Error Type</th>
+            <th>Predicted</th><th>True Class</th>
+            <th>Dominant Chunk</th><th>Blame</th>
+            <th>Order (dominant chunk)</th><th>σ_mean</th>
+          </tr>
+        </thead>
+        <tbody id="failure-tbody">
+          <tr><td colspan="9" style="color:var(--muted);">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Live inference: image upload -->
+  <section class="card">
+    <div class="card-header">
+      <h3>Live Inference — Upload Surveillance Frame</h3>
+      <span style="font-size:.75rem;color:var(--muted);">PNG/JPG · ResNet18 extracts features naturally</span>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:1.2rem;align-items:start;">
+
+      <!-- Drop zone + preview -->
+      <div>
+        <div id="drop-zone" onclick="document.getElementById('img-input').click()"
+          style="width:180px;height:180px;border:2px dashed var(--border);border-radius:8px;
+                 display:flex;align-items:center;justify-content:center;cursor:pointer;
+                 flex-direction:column;gap:.4rem;transition:border-color .2s;"
+          ondragover="event.preventDefault();this.style.borderColor='var(--accent)'"
+          ondragleave="this.style.borderColor='var(--border)'"
+          ondrop="handleDrop(event)">
+          <img id="img-preview" src="" style="display:none;width:176px;height:176px;object-fit:cover;border-radius:6px;">
+          <div id="drop-hint" style="text-align:center;color:var(--muted);font-size:.78rem;padding:.5rem;">
+            Drop PNG here<br>or click to browse
+          </div>
+        </div>
+        <input type="file" id="img-input" accept="image/*" style="display:none"
+               onchange="handleFileSelect(this.files[0])">
+        <div style="margin-top:.5rem;display:flex;gap:.4rem;">
+          <button class="btn green" onclick="runImageInference()">Predict</button>
+          <button class="btn sm" onclick="clearImage()">Clear</button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="infer-area" style="gap:.5rem;">
+        <div style="display:flex;gap:.6rem;align-items:center;">
+          <label style="font-size:.78rem;color:var(--muted);">
+            True class (for blame attribution):
+            <select id="true-class-sel" style="background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:.2rem .5rem;margin-left:.3rem;">
+              <option value="">— none —</option>
+            </select>
+          </label>
+        </div>
+        <div id="infer-result" class="result-box">Upload a surveillance frame to predict.</div>
+        <div id="prox-warning" style="display:none;"></div>
+
+        <!-- Temporal smoothing panel -->
+        <div id="temporal-panel" style="display:none;border:1px solid var(--border);border-radius:6px;padding:.6rem .8rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;">
+            <span style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">
+              Temporal Smoothing (window=8 frames)
+            </span>
+            <button class="btn sm" onclick="resetTemporalBuffer()" style="font-size:.7rem;padding:.15rem .5rem;">
+              Reset Stream
+            </button>
+          </div>
+          <div id="temporal-content"></div>
+        </div>
+
+        <!-- Order decomp: linear vs nonlinear per chunk -->
+        <div id="order-panel" style="display:none;">
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.3rem;">
+            ORDER DECOMPOSITION — linear vs nonlinear per chunk
+          </div>
+          <div id="order-bars" class="blame-bar-wrap"></div>
+        </div>
+
+        <!-- Sub-chunk routing: which learned sub-expert fired within each chunk -->
+        <div id="subchunk-panel" style="display:none;">
+          <div style="font-size:.75rem;color:var(--muted);margin-bottom:.3rem;">
+            SUB-CHUNK ROUTING — which learned sub-pattern fired within each named chunk
+          </div>
+          <div id="subchunk-bars"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ghost signals -->
+  <section class="card">
+    <div class="card-header">
+      <h3>Ghost Gate Activity <span style="font-size:.75rem;font-weight:400;color:var(--muted);">last inference</span></h3>
+    </div>
+    <div id="ghost-panel" class="blame-bar-wrap">
+      <div style="color:var(--muted);font-size:.82rem;">Run inference to see gate activity.</div>
+    </div>
+  </section>
+
+  <!-- Sub-chunk profiles -->
+  <section class="card">
+    <div class="card-header">
+      <h3>Sub-Chunk Profiles
+        <span style="font-size:.75rem;font-weight:400;color:var(--muted);">
+          auto-labeled from routing weight analysis over training data
+        </span>
+      </h3>
+    </div>
+    <div id="profile-panel">
+      <div style="color:var(--muted);font-size:.82rem;">Loading profiles…</div>
+    </div>
+  </section>
+
+  <!-- Per-video / multi-scene validation -->
+  <section class="card">
+    <div class="card-header">
+      <h3>Per-Video Validation
+        <span style="font-size:.75rem;font-weight:400;color:var(--muted);">
+          AUC across 21 CUHK Avenue scenes — same model, different temporal contexts
+        </span>
+      </h3>
+    </div>
+    <div id="pervideo-panel">
+      <div style="color:var(--muted);font-size:.82rem;">Loading…</div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast"></div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+const API = 'http://localhost:8001';
+
+// ── Charts ────────────────────────────────────────────────────────────────────
+let healChart = null;
+let blameChart = null;
+
+function mkHealChart() {
+  const ctx = document.getElementById('heal-chart').getContext('2d');
+  if (healChart) healChart.destroy();
+  healChart = new Chart(ctx, {
+    type: 'line',
+    data: { labels: [], datasets: [
+      { label: 'Val AUC (before)', data: [], borderColor: '#6366f1', tension: .35,
+        pointRadius: 4, fill: false },
+      { label: 'Val AUC (after)',  data: [], borderColor: '#10b981', tension: .35,
+        pointRadius: 4, fill: false },
+    ]},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { min: 0, max: 1, grid: { color: '#1e2d45' },
+                     ticks: { color: '#6b7280' } },
+                x: { grid: { color: '#1e2d45' }, ticks: { color: '#6b7280' } }},
+      plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+    }
+  });
+}
+
+function mkBlameChart(labels, scores, chunkNames) {
+  const ctx = document.getElementById('blame-chart').getContext('2d');
+  if (blameChart) blameChart.destroy();
+  const colors = ['#6366f1','#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6'];
+  blameChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chunkNames,
+      datasets: scores.map((s, i) => ({
+        label: `Cluster ${i}`,
+        data: chunkNames.map(c => s[c] || 0),
+        backgroundColor: colors[i % colors.length] + '99',
+        borderColor: colors[i % colors.length],
+        borderWidth: 1,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { x: { grid: { color: '#1e2d45' }, ticks: { color: '#6b7280' } },
+                y: { grid: { color: '#1e2d45' }, ticks: { color: '#6b7280' },
+                     title: { display: true, text: 'Blame Score', color: '#6b7280' }}},
+      plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+    }
+  });
+}
+
+// ── API calls ─────────────────────────────────────────────────────────────────
+async function api(path, method = 'GET', body = null) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(API + path, opts);
+  if (!r.ok) throw new Error(`${r.status} ${await r.text()}`);
+  return r.json();
+}
+
+function toast(msg, ms = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', ms);
+}
+
+// ── Load model info ───────────────────────────────────────────────────────────
+async function loadModelInfo() {
+  try {
+    const d = await api('/model_info');
+    document.getElementById('api-status').innerHTML =
+      '<span class="dot green"></span>connected';
+    document.getElementById('m-auc').textContent  = d.test_auc != null ? (d.test_auc * 100).toFixed(1) + '%' : '—';
+    document.getElementById('m-acc').textContent  = d.test_acc != null ? (d.test_acc * 100).toFixed(1) + '%' : '—';
+    document.getElementById('m-classes').textContent = d.n_classes || '—';
+    document.getElementById('m-train').textContent = d.n_train ? d.n_train.toLocaleString() : '—';
+    document.getElementById('m-chunks').textContent = (d.chunk_names || []).length || '—';
+    document.getElementById('model-name').textContent =
+      `Chunks: ${(d.chunk_names || []).join(' · ')} · ${d.n_features || '?'} features`;
+
+    // Populate inference true-class dropdown
+    const sel = document.getElementById('true-class-sel');
+    sel.innerHTML = '<option value="">— none —</option>';
+    (d.class_names || []).forEach((cn, i) => {
+      const opt = document.createElement('option');
+      opt.value = i; opt.textContent = `${i}: ${cn}`;
+      sel.appendChild(opt);
+    });
+    window._meta = d;
+  } catch (e) {
+    document.getElementById('api-status').innerHTML =
+      '<span class="dot red"></span>offline — start API';
+  }
+}
+
+// ── Load failure clusters ─────────────────────────────────────────────────────
+async function loadFailures() {
+  try {
+    const d   = await api('/failure_report');
+    const rec = await api('/perturbation_recipe');
+
+    document.getElementById('cluster-count').textContent =
+      d.n_clusters != null ? d.n_clusters : '0';
+    document.getElementById('m-failures').textContent =
+      d.n_clusters != null ? d.n_clusters : '0';
+
+    renderClusterList(d);
+    renderClusterTable(d);
+    renderRecipes(rec);
+
+    if (d.clusters && d.clusters.length > 0) {
+      const chunkNames = (window._meta || {}).chunk_names || [];
+      mkBlameChart(
+        d.clusters.map(c => `C${c.cluster_id}`),
+        d.clusters.map(c => c.blame_scores || {}),
+        chunkNames,
+      );
+    }
+  } catch (e) {
+    document.getElementById('cluster-list').innerHTML =
+      '<div style="color:var(--muted)">Could not load failure report.</div>';
+  }
+}
+
+function errorBadge(type) {
+  if (type === 'false_positive') return '<span class="error-badge fp">False +</span>';
+  if (type === 'false_negative') return '<span class="error-badge fn">False −</span>';
+  return '<span class="error-badge mc">Misclassify</span>';
+}
+
+function renderClusterList(d) {
+  const el = document.getElementById('cluster-list');
+  if (!d.clusters || d.clusters.length === 0) {
+    el.innerHTML = '<div class="ok-box">No failure clusters — model is performing well.</div>';
+    return;
+  }
+
+  el.innerHTML = d.clusters.map(c => {
+    const blames = c.blame_scores || {};
+    const maxBlame = Math.max(...Object.values(blames).map(Math.abs), 0.001);
+    const barsHtml = Object.entries(blames).map(([name, val]) => {
+      const pct = Math.round(Math.abs(val) / maxBlame * 100);
+      const col = val > 0 ? 'var(--red)' : 'var(--green)';
+      return `<div class="blame-row">
+        <span class="blame-label">${name}</span>
+        <div class="blame-track"><div class="blame-fill" style="width:${pct}%;background:${col};"></div></div>
+        <span class="blame-val" style="color:${col}">${val > 0 ? '+' : ''}${val.toFixed(3)}</span>
+      </div>`;
+    }).join('');
+
+    const orderDecomp = c.order_decomp || {};
+    const orderHtml = Object.keys(orderDecomp).length === 0 ? '' :
+      `<div style="margin-top:.5rem;border-top:1px solid var(--border);padding-top:.4rem;">
+        <div style="font-size:.72rem;color:var(--muted);margin-bottom:.25rem;">Order decomposition at failure centroid:</div>` +
+      Object.entries(orderDecomp).map(([name, od]) => {
+        const beta    = od.beta || 0;
+        const linFrac = od.linear_frac || 0;
+        const col     = linFrac > 0.5 ? 'var(--accent)' : 'var(--accent2)';
+        return `<div class="blame-row">
+          <span class="blame-label" style="font-size:.72rem;">${name}</span>
+          <div class="blame-track"><div class="blame-fill" style="width:${Math.round(linFrac*100)}%;background:${col};"></div></div>
+          <span class="blame-val" style="color:${col};font-size:.72rem;">β=${beta.toFixed(3)} · ${od.dominant || '?'}</span>
+        </div>`;
+      }).join('') + `</div>`;
+
+    return `<div class="cluster-card" onclick="this.classList.toggle('expanded')">
+      <div class="cluster-top">
+        <span><span class="cluster-id">#${c.cluster_id}</span>
+          &nbsp;${errorBadge(c.error_type)}
+          &nbsp;<b style="color:var(--amber)">${c.pred_name || '?'}</b>
+          <span style="color:var(--muted)"> → true: </span>
+          <b style="color:var(--green)">${c.true_name || '?'}</b>
+        </span>
+        <span style="color:var(--muted);font-size:.78rem;">
+          ${c.n_samples} failures · σ=${(c.sigma_mean||0).toFixed(3)}
+        </span>
+      </div>
+      <div class="cluster-detail">
+        <div style="font-size:.78rem;margin-bottom:.4rem;">
+          <span style="color:var(--muted);">Dominant chunk:</span>
+          <b style="color:var(--accent2);">${c.dominant_chunk || '—'}</b>
+          &nbsp;&nbsp;
+          <span style="color:var(--muted);">centroid ‖x‖=${(c.centroid_norm||0).toFixed(3)}</span>
+        </div>
+        <div class="blame-bar-wrap">${barsHtml}</div>
+        ${orderHtml}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderClusterTable(d) {
+  const tbody = document.getElementById('failure-tbody');
+  if (!d.clusters || d.clusters.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="color:var(--green);">No failures detected.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = d.clusters.map(c => {
+    const blames = c.blame_scores || {};
+    const top    = Object.entries(blames).sort((a,b) => b[1] - a[1])[0];
+    const topBlame = top ? top[1].toFixed(3) : '—';
+
+    // Order decomp for the dominant chunk
+    const od = (c.order_decomp || {})[c.dominant_chunk];
+    let orderCell = '—';
+    if (od) {
+      const col = od.linear_frac > 0.5 ? 'var(--accent)' : 'var(--accent2)';
+      orderCell = `<span style="color:${col};font-family:var(--mono);">${od.dominant} (β=${od.beta.toFixed(3)})</span>`;
+    }
+
+    return `<tr>
+      <td><span class="cluster-id">#${c.cluster_id}</span></td>
+      <td>${c.n_samples}</td>
+      <td>${errorBadge(c.error_type)}</td>
+      <td style="color:var(--amber)">${c.pred_name || '?'}</td>
+      <td style="color:var(--green)">${c.true_name || '?'}</td>
+      <td style="color:var(--accent2);font-weight:600;">${c.dominant_chunk || '—'}</td>
+      <td style="font-family:var(--mono);">${topBlame}</td>
+      <td>${orderCell}</td>
+      <td style="font-family:var(--mono);">${(c.sigma_mean||0).toFixed(4)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderRecipes(rec) {
+  const el = document.getElementById('recipe-list');
+  if (!rec.recipes || rec.recipes.length === 0) {
+    el.innerHTML = '<div style="color:var(--muted)">No perturbation recipes available.</div>';
+    return;
+  }
+  el.innerHTML = rec.recipes.map(r =>
+    `<div class="recipe-block">${r.instruction}
+μ: ${r.mu_summary}
+σ: ${r.sigma_summary}</div>`
+  ).join('');
+}
+
+// ── Self-heal ─────────────────────────────────────────────────────────────────
+async function triggerHeal() {
+  toast('Starting self-heal — this may take a minute…', 60000);
+  try {
+    const result = await api('/self_heal', 'POST', { max_rounds: 3, n_clusters: 5, n_synthetic: 50, sigma_scale: 0.3 });
+    toast(`Healed! Best AUC: ${(result.best_val_auc*100).toFixed(1)}%  Δ${((result.auc_total_gain||0)*100).toFixed(2)}pp`, 5000);
+    loadHealHistory();
+    loadFailures();
+  } catch (e) {
+    toast('Self-heal failed: ' + e.message, 5000);
+  }
+}
+
+async function loadHealHistory() {
+  try {
+    const d = await api('/heal_history');
+    if (!d.history || d.history.length === 0) return;
+
+    // Update chart
+    if (!healChart) mkHealChart();
+    const labels = d.history.map(r => `R${r.round}`);
+    healChart.data.labels = labels;
+    healChart.data.datasets[0].data = d.history.map(r => r.val_auc_before);
+    healChart.data.datasets[1].data = d.history.map(r => r.val_auc_after || r.val_auc_before);
+    healChart.update();
+
+    const last = d.history[d.history.length - 1];
+    const summary = d.history.map(r =>
+      `Round ${r.round}: failures=${r.n_failures}  synth=${r.n_synthetic}  AUC ${r.val_auc_before?.toFixed(4)}→${(r.val_auc_after||r.val_auc_before)?.toFixed(4)}  Δ${(r.auc_delta||0) >= 0 ? '+' : ''}${(r.auc_delta||0).toFixed(4)}  [${r.status||'ok'}]`
+    ).join('\n');
+    document.getElementById('heal-summary').textContent = summary;
+    document.getElementById('heal-status').textContent =
+      `${d.history.length} rounds · best AUC=${((d.history.reduce((b,r)=>Math.max(b,r.val_auc_after||0),0))*100).toFixed(1)}%`;
+  } catch (e) {
+    // no history yet
+  }
+}
+
+// ── Image upload inference ────────────────────────────────────────────────────
+let _currentFile = null;
+
+function handleFileSelect(file) {
+  if (!file) return;
+  _currentFile = file;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('img-preview').src = e.target.result;
+    document.getElementById('img-preview').style.display = 'block';
+    document.getElementById('drop-hint').style.display  = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').style.borderColor = 'var(--border)';
+  const file = e.dataTransfer.files[0];
+  if (file) handleFileSelect(file);
+}
+
+function clearImage() {
+  _currentFile = null;
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('drop-hint').style.display   = 'block';
+  document.getElementById('img-preview').src = '';
+  document.getElementById('infer-result').textContent = 'Upload a surveillance frame to predict.';
+  document.getElementById('prox-warning').style.display = 'none';
+  document.getElementById('order-panel').style.display    = 'none';
+  document.getElementById('subchunk-panel').style.display = 'none';
+  document.getElementById('ghost-panel').innerHTML =
+    '<div style="color:var(--muted);font-size:.82rem;">Run inference to see gate activity.</div>';
+}
+
+async function runImageInference() {
+  const result = document.getElementById('infer-result');
+  const prox   = document.getElementById('prox-warning');
+
+  if (!_currentFile) { toast('Drop or select a PNG frame first.'); return; }
+
+  result.textContent = 'Extracting features…';
+  prox.style.display = 'none';
+
+  const formData = new FormData();
+  formData.append('file', _currentFile);
+
+  const sel = document.getElementById('true-class-sel').value;
+  const url = sel !== '' ? `${API}/predict?true_class=${sel}` : `${API}/predict`;
+
+  try {
+    const r = await fetch(url, { method: 'POST', body: formData });
+    if (!r.ok) throw new Error(await r.text());
+    const d = await r.json();
+
+    // Top-5 predictions
+    const topProbs = Object.entries(d.class_probabilities || {})
+      .sort((a,b) => b[1]-a[1]).slice(0, 5)
+      .map(([k,v]) => `  ${k.padEnd(18)} ${(v*100).toFixed(1)}%`)
+      .join('\n');
+
+    // Chunk contributions
+    const contribs = d.chunk_contributions || {};
+    const chunkStr = Object.entries(contribs).length > 0
+      ? '\n\nChunk contributions:\n' + Object.entries(contribs)
+          .map(([k,v]) => `  ${k.padEnd(12)} push=${(v.disease_push ?? v.pred_push ?? 0) >= 0 ? '+' : ''}${(v.disease_push ?? v.pred_push ?? 0).toFixed(4)}`)
+          .join('\n')
+      : '';
+
+    // Blame scores (if true class provided)
+    const blameStr = Object.entries(d.blame_scores || {}).length > 0
+      ? '\n\nBlame (chunk → misclassification):\n' + Object.entries(d.blame_scores)
+          .sort((a,b) => b[1]-a[1])
+          .map(([k,v]) => `  ${k.padEnd(12)} ${v >= 0 ? '+' : ''}${v.toFixed(4)}`)
+          .join('\n')
+      : '';
+
+    const lstm = d.lstm_temporal || {};
+    const lstmStr = lstm.lstm_pred
+      ? `\n\nLSTM (sequence): ${lstm.lstm_pred}  (${(lstm.lstm_confidence*100).toFixed(1)}%)`
+      : '';
+
+    result.textContent =
+      `Prediction: ${d.predicted_class}  (confidence ${(d.confidence*100).toFixed(1)}%)${lstmStr}\n\n` +
+      `Top-5 classes:\n${topProbs}${chunkStr}${blameStr}`;
+
+    renderTemporalPanel(d.temporal || {}, d.class_probabilities || {});
+    renderGhostPanel(d.ghost_signals || {});
+    renderOrderPanel(d.order_decomp || {});
+    renderSubChunkPanel(d.sub_chunk_routing || {});
+
+    // Proximity warning
+    const pw = d.proximity_warning || {};
+    if (pw.warning) {
+      prox.innerHTML =
+        `<div class="warning-box">
+          ⚠ Near Failure Cluster #${pw.nearest_cluster}
+          &nbsp;(dist=${pw.distance?.toFixed(2)}) · ${pw.cluster_failures} historical failures<br>
+          <b>Dominant chunk:</b> ${pw.dominant_chunk}
+          &nbsp;|&nbsp; ${pw.cluster_error || ''}
+          ${pw.message ? `<br><span style="opacity:.7">${pw.message}</span>` : ''}
+        </div>`;
+      prox.style.display = 'block';
+    } else if (pw.nearest_cluster != null) {
+      prox.innerHTML = `<div class="ok-box">Safe — nearest cluster dist=${pw.distance?.toFixed(2)}</div>`;
+      prox.style.display = 'block';
+    }
+  } catch (e) {
+    result.textContent = 'Error: ' + e.message;
+  }
+}
+
+async function resetTemporalBuffer() {
+  try {
+    await fetch(`${API}/reset_temporal`, { method: 'POST' });
+    document.getElementById('temporal-panel').style.display = 'none';
+    toast('Temporal buffer reset.');
+  } catch (e) {
+    toast('Reset failed: ' + e.message);
+  }
+}
+
+function renderTemporalPanel(t, rawProbs) {
+  const panel   = document.getElementById('temporal-panel');
+  const content = document.getElementById('temporal-content');
+  if (!t || t.window_size === undefined) { panel.style.display = 'none'; return; }
+  panel.style.display = 'block';
+
+  const frameCol    = t.frame_pred === t.smoothed_pred ? 'var(--green)' : 'var(--amber)';
+  const streakBadge = t.anomaly_streak >= 3
+    ? `<span style="background:var(--red);color:#fff;border-radius:4px;padding:.1rem .4rem;font-size:.72rem;">
+        STREAK ${t.anomaly_streak}
+       </span>`
+    : t.anomaly_streak > 0
+      ? `<span style="background:var(--amber);color:#000;border-radius:4px;padding:.1rem .4rem;font-size:.72rem;">
+          streak ${t.anomaly_streak}
+         </span>`
+      : '';
+
+  const stableNote = !t.is_stable
+    ? `<span style="color:var(--muted);font-size:.72rem;"> — building window (${t.window_size}/4)</span>`
+    : '';
+
+  content.innerHTML = `
+    <div style="display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.8rem;">
+      <div>
+        <span style="color:var(--muted);">Frame: </span>
+        <b style="color:${frameCol}">${t.frame_pred !== undefined ? (Object.keys(rawProbs)[t.frame_pred] || t.frame_pred) : '—'}</b>
+        <span style="color:var(--muted);"> ${((t.frame_confidence||0)*100).toFixed(1)}%</span>
+      </div>
+      <div>
+        <span style="color:var(--muted);">Smoothed: </span>
+        <b style="color:var(--accent)">${t.smoothed_pred || '—'}</b>
+        <span style="color:var(--muted);"> ${((t.smoothed_confidence||0)*100).toFixed(1)}%</span>
+        ${stableNote}
+      </div>
+      <div>${streakBadge}</div>
+    </div>
+    ${t.note ? `<div style="font-size:.75rem;color:var(--amber);margin-top:.3rem;">${t.note}</div>` : ''}`;
+}
+
+function renderSubChunkPanel(routing) {
+  const panel = document.getElementById('subchunk-panel');
+  const bars  = document.getElementById('subchunk-bars');
+  if (!routing || Object.keys(routing).length === 0) {
+    panel.style.display = 'none'; return;
+  }
+  panel.style.display = 'block';
+
+  bars.innerHTML = Object.entries(routing).map(([chunkName, info]) => {
+    const weights  = info.routing_weights || {};
+    const dominant = info.dominant_sub || '';
+    const vals     = Object.values(weights);
+    const maxW     = Math.max(...vals, 0.001);
+
+    const subBars = Object.entries(weights).map(([subKey, w]) => {
+      const pct = Math.round(w / maxW * 100);
+      const isdom = subKey === dominant;
+      const col = isdom ? 'var(--accent2)' : 'var(--muted)';
+      return `<div class="blame-row" style="margin-bottom:.1rem;">
+        <span class="blame-label" style="font-size:.72rem;min-width:80px;color:${col};">
+          ${subKey}${isdom ? ' ★' : ''}
+        </span>
+        <div class="blame-track">
+          <div class="blame-fill" style="width:${pct}%;background:${col};opacity:${isdom ? 1 : 0.45};"></div>
+        </div>
+        <span class="blame-val" style="color:${col};font-size:.72rem;">${(w*100).toFixed(1)}%</span>
+      </div>`;
+    }).join('');
+
+    return `<div style="margin-bottom:.6rem;">
+      <div style="font-size:.76rem;font-weight:600;color:var(--text);margin-bottom:.2rem;">${chunkName}</div>
+      ${subBars}
+    </div>`;
+  }).join('');
+}
+
+function renderOrderPanel(orderDecomp) {
+  const panel = document.getElementById('order-panel');
+  const bars  = document.getElementById('order-bars');
+  if (!orderDecomp || Object.keys(orderDecomp).length === 0) {
+    panel.style.display = 'none'; return;
+  }
+  panel.style.display = 'block';
+  bars.innerHTML = Object.entries(orderDecomp).map(([name, od]) => {
+    const beta    = od.beta || 0;
+    const linFrac = od.linear_frac || 0;
+    const col     = linFrac > 0.5 ? 'var(--accent)' : 'var(--accent2)';
+    return `<div class="blame-row">
+      <span class="blame-label">${name}</span>
+      <div class="blame-track">
+        <div class="blame-fill" style="width:${Math.round(linFrac*100)}%;background:${col};"></div>
+      </div>
+      <span class="blame-val" style="color:${col}">
+        β=${beta.toFixed(3)} · ${od.dominant || '?'}
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function renderGhostPanel(signals) {
+  const el = document.getElementById('ghost-panel');
+  if (!signals || Object.keys(signals).length === 0) return;
+  const max = Math.max(...Object.values(signals), 0.001);
+  el.innerHTML = Object.entries(signals).map(([gate, alpha]) => {
+    const pct = Math.round(alpha / max * 100);
+    const col = alpha > 0.5 ? 'var(--red)' : alpha > 0.15 ? 'var(--amber)' : 'var(--green)';
+    return `<div class="blame-row">
+      <span class="blame-label" style="min-width:160px;">${gate}</span>
+      <div class="blame-track"><div class="blame-fill" style="width:${pct}%;background:${col};"></div></div>
+      <span class="blame-val" style="color:${col}">${alpha.toFixed(4)}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Sub-chunk profiles ────────────────────────────────────────────────────────
+async function loadSubChunkProfiles() {
+  const panel = document.getElementById('profile-panel');
+  try {
+    const d = await api('/sub_chunk_profiles');
+    if (d.status !== 'ok' || !d.profiles) {
+      panel.innerHTML = '<div style="color:var(--muted);font-size:.82rem;">Not generated yet.</div>';
+      return;
+    }
+    panel.innerHTML = Object.entries(d.profiles).map(([chunkName, subs]) => {
+      const subCards = Object.entries(subs).map(([subKey, info]) => {
+        const lift = info.anomaly_lift || 0;
+        const col  = lift > 0.2 ? 'var(--red)' : lift < -0.1 ? 'var(--green)' : 'var(--muted)';
+        const liftStr = lift >= 0 ? `+${(lift*100).toFixed(0)}pp` : `${(lift*100).toFixed(0)}pp`;
+        return `<div style="border:1px solid var(--border);border-radius:5px;padding:.4rem .6rem;margin-bottom:.3rem;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <span style="font-size:.78rem;font-weight:600;">${subKey}</span>
+            <span style="font-size:.72rem;color:${col};">${liftStr} anomaly lift</span>
+          </div>
+          <div style="font-size:.73rem;color:var(--muted);margin:.1rem 0;">${info.interpretation || ''}</div>
+          <div style="font-size:.71rem;color:var(--muted);">
+            routing=${(info.mean_routing*100).toFixed(1)}% · dominant=${info.dominant_class}
+          </div>
+        </div>`;
+      }).join('');
+      return `<div style="margin-bottom:.8rem;">
+        <div style="font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.3rem;">${chunkName}</div>
+        ${subCards}
+      </div>`;
+    }).join('');
+  } catch (e) {
+    panel.innerHTML = `<div style="color:var(--muted);">Profiles unavailable.</div>`;
+  }
+}
+
+// ── Per-video validation ───────────────────────────────────────────────────────
+async function loadPerVideoValidation() {
+  const panel = document.getElementById('pervideo-panel');
+  try {
+    const d = await api('/per_video_validation');
+    if (!d.per_video) { panel.innerHTML = '<div style="color:var(--muted);">Not generated yet.</div>'; return; }
+
+    const summary = `<div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:.82rem;margin-bottom:.6rem;">
+      <div><span style="color:var(--muted);">Mean AUC </span>
+           <b style="color:var(--accent)">${(d.mean_auc*100).toFixed(1)}%</b></div>
+      <div><span style="color:var(--muted);">Std </span>
+           <b>±${(d.std_auc*100).toFixed(1)}pp</b></div>
+      <div><span style="color:var(--muted);">Videos </span>
+           <b>${d.n_videos_evaluated}</b></div>
+      <div style="font-size:.72rem;color:var(--muted);align-self:center;">
+        Same model, different temporal scenes within CUHK Avenue
+      </div>
+    </div>`;
+
+    const maxAUC = Math.max(...Object.values(d.per_video).map(v => v.auc || 0), 0.001);
+    const rows = Object.entries(d.per_video).map(([vid, info]) => {
+      if (info.auc == null) return '';
+      const pct = Math.round(info.auc / maxAUC * 100);
+      const col = info.auc >= 0.95 ? 'var(--green)' : info.auc >= 0.85 ? 'var(--amber)' : 'var(--red)';
+      return `<div class="blame-row">
+        <span class="blame-label" style="min-width:60px;font-size:.76rem;">vid ${vid}</span>
+        <div class="blame-track"><div class="blame-fill" style="width:${pct}%;background:${col};"></div></div>
+        <span class="blame-val" style="color:${col};font-size:.76rem;">${(info.auc*100).toFixed(1)}%</span>
+        <span style="font-size:.7rem;color:var(--muted);margin-left:.4rem;">${info.n_frames}f</span>
+      </div>`;
+    }).join('');
+
+    panel.innerHTML = summary + `<div class="blame-bar-wrap">${rows}</div>`;
+  } catch (e) {
+    panel.innerHTML = `<div style="color:var(--muted);">Validation data unavailable.</div>`;
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function refreshAll() {
+  await loadModelInfo();
+  await loadFailures();
+  await loadHealHistory();
+  loadSubChunkProfiles();
+  loadPerVideoValidation();
+}
+
+mkHealChart();
+refreshAll();
+</script>
+</body>
+</html>

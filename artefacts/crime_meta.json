@@ -1,0 +1,55 @@
+{
+  "chunk_names": [
+    "Texture",
+    "Structure",
+    "Context",
+    "Semantic"
+  ],
+  "chunk_sizes": [
+    32,
+    32,
+    32,
+    32
+  ],
+  "n_classes": 2,
+  "class_names": [
+    "Anomaly",
+    "Normal"
+  ],
+  "n_features": 128,
+  "proj_dim": 32,
+  "image_size": 64,
+  "cfg": {
+    "data_root": "CUHK_Avenue",
+    "image_size": 64,
+    "batch_size": 32,
+    "num_workers": 2,
+    "max_per_class": null,
+    "backbone": "tiny",
+    "proj_dim": 32,
+    "pretrained": false,
+    "freeze_backbone": false,
+    "embed_dim": 16,
+    "use_ghost": true,
+    "use_order_decomp": true,
+    "n_sub_chunks": 3,
+    "epochs": 40,
+    "lr": 0.001,
+    "lambda_peak": 0.006,
+    "warmup_frac": 0.2,
+    "hold_frac": 0.6,
+    "self_heal": true,
+    "heal_rounds": 3,
+    "heal_n_clusters": 5,
+    "heal_n_synth": 40,
+    "heal_sigma": 0.3,
+    "heal_epochs": 15,
+    "heal_patience": 2
+  },
+  "test_auc": 0.92,
+  "test_acc": 0.92,
+  "best_val_auc": 0.9508,
+  "n_train": 1520,
+  "n_val": 325,
+  "n_test": 325
+}

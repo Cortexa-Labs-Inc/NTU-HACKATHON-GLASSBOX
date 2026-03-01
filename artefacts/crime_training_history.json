@@ -1,0 +1,1294 @@
+{
+  "training": [
+    {
+      "epoch": 1,
+      "val_auc": 0.9108,
+      "val_acc": 0.9108,
+      "lambda": 0.00075,
+      "train_loss": 0.6369
+    },
+    {
+      "epoch": 2,
+      "val_auc": 0.6246,
+      "val_acc": 0.6246,
+      "lambda": 0.0015,
+      "train_loss": 0.4036
+    },
+    {
+      "epoch": 3,
+      "val_auc": 0.9231,
+      "val_acc": 0.9231,
+      "lambda": 0.00225,
+      "train_loss": 0.3638
+    },
+    {
+      "epoch": 4,
+      "val_auc": 0.9385,
+      "val_acc": 0.9385,
+      "lambda": 0.003,
+      "train_loss": 0.3844
+    },
+    {
+      "epoch": 5,
+      "val_auc": 0.9385,
+      "val_acc": 0.9385,
+      "lambda": 0.00375,
+      "train_loss": 0.354
+    },
+    {
+      "epoch": 6,
+      "val_auc": 0.9323,
+      "val_acc": 0.9323,
+      "lambda": 0.0045,
+      "train_loss": 0.365
+    },
+    {
+      "epoch": 7,
+      "val_auc": 0.9477,
+      "val_acc": 0.9477,
+      "lambda": 0.00525,
+      "train_loss": 0.3669
+    },
+    {
+      "epoch": 8,
+      "val_auc": 0.9323,
+      "val_acc": 0.9323,
+      "lambda": 0.006,
+      "train_loss": 0.3352
+    },
+    {
+      "epoch": 9,
+      "val_auc": 0.92,
+      "val_acc": 0.92,
+      "lambda": 0.006,
+      "train_loss": 0.312
+    },
+    {
+      "epoch": 10,
+      "val_auc": 0.9292,
+      "val_acc": 0.9292,
+      "lambda": 0.006,
+      "train_loss": 0.3213
+    },
+    {
+      "epoch": 11,
+      "val_auc": 0.9385,
+      "val_acc": 0.9385,
+      "lambda": 0.006,
+      "train_loss": 0.3129
+    },
+    {
+      "epoch": 12,
+      "val_auc": 0.8677,
+      "val_acc": 0.8677,
+      "lambda": 0.006,
+      "train_loss": 0.2904
+    },
+    {
+      "epoch": 13,
+      "val_auc": 0.9231,
+      "val_acc": 0.9231,
+      "lambda": 0.006,
+      "train_loss": 0.2842
+    },
+    {
+      "epoch": 14,
+      "val_auc": 0.9415,
+      "val_acc": 0.9415,
+      "lambda": 0.006,
+      "train_loss": 0.2629
+    },
+    {
+      "epoch": 15,
+      "val_auc": 0.9385,
+      "val_acc": 0.9385,
+      "lambda": 0.006,
+      "train_loss": 0.2754
+    },
+    {
+      "epoch": 16,
+      "val_auc": 0.9292,
+      "val_acc": 0.9292,
+      "lambda": 0.006,
+      "train_loss": 0.2379
+    },
+    {
+      "epoch": 17,
+      "val_auc": 0.9262,
+      "val_acc": 0.9262,
+      "lambda": 0.006,
+      "train_loss": 0.2428
+    },
+    {
+      "epoch": 18,
+      "val_auc": 0.9292,
+      "val_acc": 0.9292,
+      "lambda": 0.006,
+      "train_loss": 0.2661
+    },
+    {
+      "epoch": 19,
+      "val_auc": 0.8677,
+      "val_acc": 0.8677,
+      "lambda": 0.006,
+      "train_loss": 0.2171
+    },
+    {
+      "epoch": 20,
+      "val_auc": 0.9323,
+      "val_acc": 0.9323,
+      "lambda": 0.006,
+      "train_loss": 0.2319
+    },
+    {
+      "epoch": 21,
+      "val_auc": 0.9354,
+      "val_acc": 0.9354,
+      "lambda": 0.006,
+      "train_loss": 0.2276
+    },
+    {
+      "epoch": 22,
+      "val_auc": 0.9108,
+      "val_acc": 0.9108,
+      "lambda": 0.006,
+      "train_loss": 0.2791
+    },
+    {
+      "epoch": 23,
+      "val_auc": 0.9138,
+      "val_acc": 0.9138,
+      "lambda": 0.006,
+      "train_loss": 0.2178
+    },
+    {
+      "epoch": 24,
+      "val_auc": 0.9323,
+      "val_acc": 0.9323,
+      "lambda": 0.006,
+      "train_loss": 0.2165
+    },
+    {
+      "epoch": 25,
+      "val_auc": 0.8985,
+      "val_acc": 0.8985,
+      "lambda": 0.00594,
+      "train_loss": 0.2035
+    },
+    {
+      "epoch": 26,
+      "val_auc": 0.9477,
+      "val_acc": 0.9477,
+      "lambda": 0.00577,
+      "train_loss": 0.1678
+    },
+    {
+      "epoch": 27,
+      "val_auc": 0.8123,
+      "val_acc": 0.8123,
+      "lambda": 0.00549,
+      "train_loss": 0.1655
+    },
+    {
+      "epoch": 28,
+      "val_auc": 0.9077,
+      "val_acc": 0.9077,
+      "lambda": 0.00512,
+      "train_loss": 0.1725
+    },
+    {
+      "epoch": 29,
+      "val_auc": 0.9508,
+      "val_acc": 0.9508,
+      "lambda": 0.00467,
+      "train_loss": 0.1857
+    },
+    {
+      "epoch": 30,
+      "val_auc": 0.9231,
+      "val_acc": 0.9231,
+      "lambda": 0.00415,
+      "train_loss": 0.1902
+    },
+    {
+      "epoch": 31,
+      "val_auc": 0.9292,
+      "val_acc": 0.9292,
+      "lambda": 0.00359,
+      "train_loss": 0.1895
+    },
+    {
+      "epoch": 32,
+      "val_auc": 0.9231,
+      "val_acc": 0.9231,
+      "lambda": 0.003,
+      "train_loss": 0.1565
+    },
+    {
+      "epoch": 33,
+      "val_auc": 0.9292,
+      "val_acc": 0.9292,
+      "lambda": 0.00241,
+      "train_loss": 0.1611
+    },
+    {
+      "epoch": 34,
+      "val_auc": 0.9138,
+      "val_acc": 0.9138,
+      "lambda": 0.00185,
+      "train_loss": 0.114
+    },
+    {
+      "epoch": 35,
+      "val_auc": 0.9446,
+      "val_acc": 0.9446,
+      "lambda": 0.00133,
+      "train_loss": 0.1216
+    },
+    {
+      "epoch": 36,
+      "val_auc": 0.9385,
+      "val_acc": 0.9385,
+      "lambda": 0.00088,
+      "train_loss": 0.1184
+    },
+    {
+      "epoch": 37,
+      "val_auc": 0.9015,
+      "val_acc": 0.9015,
+      "lambda": 0.00051,
+      "train_loss": 0.1435
+    },
+    {
+      "epoch": 38,
+      "val_auc": 0.9354,
+      "val_acc": 0.9354,
+      "lambda": 0.00023,
+      "train_loss": 0.1194
+    },
+    {
+      "epoch": 39,
+      "val_auc": 0.9477,
+      "val_acc": 0.9477,
+      "lambda": 6e-05,
+      "train_loss": 0.1021
+    },
+    {
+      "epoch": 40,
+      "val_auc": 0.9323,
+      "val_acc": 0.9323,
+      "lambda": 0.0,
+      "train_loss": 0.1092
+    }
+  ],
+  "healing": [
+    {
+      "round": 1,
+      "val_auc_before": 0.9847,
+      "val_acc_before": 0.9508,
+      "n_failures": 16,
+      "clusters": [
+        {
+          "cluster_id": 0,
+          "n_samples": 1,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Semantic",
+          "blame_scores": {
+            "Texture": 0.236,
+            "Structure": -1.7536,
+            "Context": 1.7808,
+            "Semantic": 2.1545
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2919,
+              "linear_frac": 0.8472,
+              "linear_norm": 1.5724,
+              "nonlinear_norm": 0.9713,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3782,
+              "linear_frac": 0.3005,
+              "linear_norm": 1.2712,
+              "nonlinear_norm": 7.8239,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.3102,
+              "linear_frac": 0.8682,
+              "linear_norm": 2.276,
+              "nonlinear_norm": 1.1143,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.318,
+              "linear_frac": 0.8356,
+              "linear_norm": 3.9616,
+              "nonlinear_norm": 2.4517,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 8.4352,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": 0.236,
+            "Structure": -1.7536,
+            "Context": 1.7808,
+            "Semantic": 2.1545
+          }
+        },
+        {
+          "cluster_id": 1,
+          "n_samples": 12,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Context",
+          "blame_scores": {
+            "Texture": -0.4249,
+            "Structure": -0.6465,
+            "Context": 1.498,
+            "Semantic": 0.7936
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2919,
+              "linear_frac": 0.809,
+              "linear_norm": 1.5744,
+              "nonlinear_norm": 1.2733,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3782,
+              "linear_frac": 0.7815,
+              "linear_norm": 1.3368,
+              "nonlinear_norm": 0.988,
+              "dominant": "linear"
+            },
+            "Context": {
+              "beta": 0.3102,
+              "linear_frac": 0.791,
+              "linear_norm": 2.8075,
+              "nonlinear_norm": 2.3909,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.318,
+              "linear_frac": 0.8005,
+              "linear_norm": 1.8133,
+              "nonlinear_norm": 1.4215,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.94,
+          "sigma_mean": 0.0516,
+          "chunk_attribution": {
+            "Texture": -0.4249,
+            "Structure": -0.6465,
+            "Context": 1.498,
+            "Semantic": 0.7936
+          }
+        },
+        {
+          "cluster_id": 2,
+          "n_samples": 1,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Context",
+          "blame_scores": {
+            "Texture": -0.1233,
+            "Structure": -1.3235,
+            "Context": 0.9509,
+            "Semantic": 0.56
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2919,
+              "linear_frac": 0.7473,
+              "linear_norm": 1.6182,
+              "nonlinear_norm": 1.8743,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3782,
+              "linear_frac": 0.3545,
+              "linear_norm": 1.224,
+              "nonlinear_norm": 5.8924,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.3102,
+              "linear_frac": 0.7191,
+              "linear_norm": 2.1212,
+              "nonlinear_norm": 2.6716,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.318,
+              "linear_frac": 0.6694,
+              "linear_norm": 2.2195,
+              "nonlinear_norm": 3.4469,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7701,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": -0.1233,
+            "Structure": -1.3235,
+            "Context": 0.9509,
+            "Semantic": 0.56
+          }
+        },
+        {
+          "cluster_id": 3,
+          "n_samples": 1,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Structure",
+          "blame_scores": {
+            "Texture": -0.4197,
+            "Structure": 1.8998,
+            "Context": -0.0515,
+            "Semantic": 0.8631
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2919,
+              "linear_frac": 0.766,
+              "linear_norm": 1.5681,
+              "nonlinear_norm": 1.641,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3782,
+              "linear_frac": 0.2798,
+              "linear_norm": 1.2252,
+              "nonlinear_norm": 8.3366,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.3102,
+              "linear_frac": 0.7599,
+              "linear_norm": 1.8665,
+              "nonlinear_norm": 1.9017,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.318,
+              "linear_frac": 0.689,
+              "linear_norm": 2.7988,
+              "nonlinear_norm": 3.9722,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.797,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": -0.4197,
+            "Structure": 1.8998,
+            "Context": -0.0515,
+            "Semantic": 0.8631
+          }
+        },
+        {
+          "cluster_id": 4,
+          "n_samples": 1,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Structure",
+          "blame_scores": {
+            "Texture": -0.1916,
+            "Structure": 2.1289,
+            "Context": 0.8127,
+            "Semantic": 0.5133
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2919,
+              "linear_frac": 0.6517,
+              "linear_norm": 1.6179,
+              "nonlinear_norm": 2.9624,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3782,
+              "linear_frac": 0.2443,
+              "linear_norm": 1.2079,
+              "nonlinear_norm": 9.8817,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.3102,
+              "linear_frac": 0.7838,
+              "linear_norm": 2.2573,
+              "nonlinear_norm": 2.0077,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.318,
+              "linear_frac": 0.7358,
+              "linear_norm": 2.0972,
+              "nonlinear_norm": 2.3686,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7102,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": -0.1916,
+            "Structure": 2.1289,
+            "Context": 0.8127,
+            "Semantic": 0.5133
+          }
+        }
+      ],
+      "perturbation_report": [
+        {
+          "cluster_id": 0,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 8.4352,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        },
+        {
+          "cluster_id": 1,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 7.94,
+          "sigma_mean": 0.0516,
+          "sigma_max": 0.3449,
+          "effective_sigma": 0.0155
+        },
+        {
+          "cluster_id": 2,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.7701,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        },
+        {
+          "cluster_id": 3,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 7.797,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        },
+        {
+          "cluster_id": 4,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 7.7102,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        }
+      ],
+      "n_synthetic": 200,
+      "val_auc_after": 0.9826,
+      "val_acc_after": 0.9354,
+      "auc_delta": -0.002,
+      "elapsed_s": 6.94,
+      "status": "ok"
+    },
+    {
+      "round": 2,
+      "val_auc_before": 0.9826,
+      "val_acc_before": 0.9354,
+      "n_failures": 21,
+      "clusters": [
+        {
+          "cluster_id": 0,
+          "n_samples": 4,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 1.6043,
+            "Structure": -1.3881,
+            "Context": 0.0417,
+            "Semantic": -0.0491
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2104,
+              "linear_frac": 0.661,
+              "linear_norm": 1.6122,
+              "nonlinear_norm": 3.93,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3397,
+              "linear_frac": 0.426,
+              "linear_norm": 1.2333,
+              "nonlinear_norm": 4.8921,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2904,
+              "linear_frac": 0.7874,
+              "linear_norm": 2.2337,
+              "nonlinear_norm": 2.0771,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2618,
+              "linear_frac": 0.5417,
+              "linear_norm": 1.5577,
+              "nonlinear_norm": 5.0341,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7668,
+          "sigma_mean": 0.0491,
+          "chunk_attribution": {
+            "Texture": 1.6043,
+            "Structure": -1.3881,
+            "Context": 0.0417,
+            "Semantic": -0.0491
+          }
+        },
+        {
+          "cluster_id": 1,
+          "n_samples": 2,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Structure",
+          "blame_scores": {
+            "Texture": -0.0751,
+            "Structure": 2.2663,
+            "Context": -1.563,
+            "Semantic": 0.5397
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2104,
+              "linear_frac": 0.7831,
+              "linear_norm": 1.6408,
+              "nonlinear_norm": 2.1606,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3397,
+              "linear_frac": 0.3633,
+              "linear_norm": 1.1667,
+              "nonlinear_norm": 6.0181,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2904,
+              "linear_frac": 0.7225,
+              "linear_norm": 2.3499,
+              "nonlinear_norm": 3.1083,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2618,
+              "linear_frac": 0.3773,
+              "linear_norm": 1.4768,
+              "nonlinear_norm": 9.3103,
+              "dominant": "nonlinear"
+            }
+          },
+          "centroid_norm": 7.5674,
+          "sigma_mean": 0.0529,
+          "chunk_attribution": {
+            "Texture": -0.0751,
+            "Structure": 2.2663,
+            "Context": -1.563,
+            "Semantic": 0.5397
+          }
+        },
+        {
+          "cluster_id": 2,
+          "n_samples": 11,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 1.8138,
+            "Structure": 1.7169,
+            "Context": -1.4002,
+            "Semantic": -0.167
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2104,
+              "linear_frac": 0.7316,
+              "linear_norm": 1.5955,
+              "nonlinear_norm": 2.7819,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3397,
+              "linear_frac": 0.5358,
+              "linear_norm": 1.3412,
+              "nonlinear_norm": 3.4207,
+              "dominant": "linear"
+            },
+            "Context": {
+              "beta": 0.2904,
+              "linear_frac": 0.768,
+              "linear_norm": 2.9252,
+              "nonlinear_norm": 3.043,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2618,
+              "linear_frac": 0.6029,
+              "linear_norm": 1.6995,
+              "nonlinear_norm": 4.2752,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.8593,
+          "sigma_mean": 0.0568,
+          "chunk_attribution": {
+            "Texture": 1.8138,
+            "Structure": 1.7169,
+            "Context": -1.4002,
+            "Semantic": -0.167
+          }
+        },
+        {
+          "cluster_id": 3,
+          "n_samples": 2,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Context",
+          "blame_scores": {
+            "Texture": 1.405,
+            "Structure": -1.9903,
+            "Context": 2.8433,
+            "Semantic": 0.5047
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2104,
+              "linear_frac": 0.7823,
+              "linear_norm": 1.6089,
+              "nonlinear_norm": 2.1276,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3397,
+              "linear_frac": 0.3501,
+              "linear_norm": 1.2392,
+              "nonlinear_norm": 6.7714,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2904,
+              "linear_frac": 0.6149,
+              "linear_norm": 1.9064,
+              "nonlinear_norm": 4.1123,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2618,
+              "linear_frac": 0.7843,
+              "linear_norm": 2.3576,
+              "nonlinear_norm": 2.4765,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7247,
+          "sigma_mean": 0.0175,
+          "chunk_attribution": {
+            "Texture": 1.405,
+            "Structure": -1.9903,
+            "Context": 2.8433,
+            "Semantic": 0.5047
+          }
+        },
+        {
+          "cluster_id": 4,
+          "n_samples": 2,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Structure",
+          "blame_scores": {
+            "Texture": 1.3058,
+            "Structure": 2.3266,
+            "Context": -2.345,
+            "Semantic": 0.0903
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.2104,
+              "linear_frac": 0.8542,
+              "linear_norm": 1.621,
+              "nonlinear_norm": 1.3153,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.3397,
+              "linear_frac": 0.3485,
+              "linear_norm": 1.2059,
+              "nonlinear_norm": 6.6372,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2904,
+              "linear_frac": 0.7615,
+              "linear_norm": 3.0723,
+              "nonlinear_norm": 3.314,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2618,
+              "linear_frac": 0.8635,
+              "linear_norm": 3.155,
+              "nonlinear_norm": 1.9046,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 8.2921,
+          "sigma_mean": 0.0331,
+          "chunk_attribution": {
+            "Texture": 1.3058,
+            "Structure": 2.3266,
+            "Context": -2.345,
+            "Semantic": 0.0903
+          }
+        }
+      ],
+      "perturbation_report": [
+        {
+          "cluster_id": 0,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.7668,
+          "sigma_mean": 0.0491,
+          "sigma_max": 0.4674,
+          "effective_sigma": 0.0147
+        },
+        {
+          "cluster_id": 1,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 7.5674,
+          "sigma_mean": 0.0529,
+          "sigma_max": 0.5631,
+          "effective_sigma": 0.0159
+        },
+        {
+          "cluster_id": 2,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.8593,
+          "sigma_mean": 0.0568,
+          "sigma_max": 0.3957,
+          "effective_sigma": 0.017
+        },
+        {
+          "cluster_id": 3,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.7247,
+          "sigma_mean": 0.0175,
+          "sigma_max": 0.2082,
+          "effective_sigma": 0.0053
+        },
+        {
+          "cluster_id": 4,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 8.2921,
+          "sigma_mean": 0.0331,
+          "sigma_max": 0.3503,
+          "effective_sigma": 0.0099
+        }
+      ],
+      "n_synthetic": 200,
+      "val_auc_after": 0.9884,
+      "val_acc_after": 0.9415,
+      "auc_delta": 0.0058,
+      "elapsed_s": 6.95,
+      "status": "ok"
+    },
+    {
+      "round": 3,
+      "val_auc_before": 0.9884,
+      "val_acc_before": 0.9415,
+      "n_failures": 19,
+      "clusters": [
+        {
+          "cluster_id": 0,
+          "n_samples": 11,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 0.0,
+            "Structure": 0.0,
+            "Context": 0.0,
+            "Semantic": 0.0
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.1412,
+              "linear_frac": 0.7671,
+              "linear_norm": 1.5824,
+              "nonlinear_norm": 3.4033,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.321,
+              "linear_frac": 0.412,
+              "linear_norm": 1.2404,
+              "nonlinear_norm": 5.5155,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2552,
+              "linear_frac": 0.7595,
+              "linear_norm": 3.0178,
+              "nonlinear_norm": 3.7456,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2541,
+              "linear_frac": 0.7404,
+              "linear_norm": 2.1867,
+              "nonlinear_norm": 3.0174,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.9599,
+          "sigma_mean": 0.0486,
+          "chunk_attribution": {
+            "Texture": 0.0,
+            "Structure": 0.0,
+            "Context": 0.0,
+            "Semantic": 0.0
+          }
+        },
+        {
+          "cluster_id": 1,
+          "n_samples": 1,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 6.5368,
+            "Structure": -1.6963,
+            "Context": -2.0398,
+            "Semantic": -2.2195
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.1412,
+              "linear_frac": 0.5794,
+              "linear_norm": 1.6277,
+              "nonlinear_norm": 8.3692,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.321,
+              "linear_frac": 0.6325,
+              "linear_norm": 1.3822,
+              "nonlinear_norm": 2.5023,
+              "dominant": "linear"
+            },
+            "Context": {
+              "beta": 0.2552,
+              "linear_frac": 0.5932,
+              "linear_norm": 2.7887,
+              "nonlinear_norm": 7.4941,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2541,
+              "linear_frac": 0.6391,
+              "linear_norm": 3.9038,
+              "nonlinear_norm": 8.678,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 8.1795,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": 6.5368,
+            "Structure": -1.6963,
+            "Context": -2.0398,
+            "Semantic": -2.2195
+          }
+        },
+        {
+          "cluster_id": 2,
+          "n_samples": 4,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Structure",
+          "blame_scores": {
+            "Texture": 0.9082,
+            "Structure": 1.9918,
+            "Context": -1.9161,
+            "Semantic": -0.9795
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.1412,
+              "linear_frac": 0.892,
+              "linear_norm": 1.5632,
+              "nonlinear_norm": 1.34,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.321,
+              "linear_frac": 0.4265,
+              "linear_norm": 1.2175,
+              "nonlinear_norm": 5.1014,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2552,
+              "linear_frac": 0.7575,
+              "linear_norm": 2.9829,
+              "nonlinear_norm": 3.7421,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2541,
+              "linear_frac": 0.5622,
+              "linear_norm": 2.2266,
+              "nonlinear_norm": 6.8234,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7314,
+          "sigma_mean": 0.042,
+          "chunk_attribution": {
+            "Texture": 0.9082,
+            "Structure": 1.9918,
+            "Context": -1.9161,
+            "Semantic": -0.9795
+          }
+        },
+        {
+          "cluster_id": 3,
+          "n_samples": 1,
+          "error_type": "false_negative",
+          "true_class": 1,
+          "pred_class": 0,
+          "true_name": "Normal",
+          "pred_name": "Anomaly",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 1.1399,
+            "Structure": 0.5731,
+            "Context": 0.3362,
+            "Semantic": -1.6626
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.1412,
+              "linear_frac": 0.7834,
+              "linear_norm": 1.5931,
+              "nonlinear_norm": 3.1192,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.321,
+              "linear_frac": 0.3538,
+              "linear_norm": 1.2191,
+              "nonlinear_norm": 6.9371,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2552,
+              "linear_frac": 0.8033,
+              "linear_norm": 2.2862,
+              "nonlinear_norm": 2.1938,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2541,
+              "linear_frac": 0.4468,
+              "linear_norm": 2.8687,
+              "nonlinear_norm": 13.9816,
+              "dominant": "nonlinear"
+            }
+          },
+          "centroid_norm": 8.1156,
+          "sigma_mean": 0.001,
+          "chunk_attribution": {
+            "Texture": 1.1399,
+            "Structure": 0.5731,
+            "Context": 0.3362,
+            "Semantic": -1.6626
+          }
+        },
+        {
+          "cluster_id": 4,
+          "n_samples": 2,
+          "error_type": "false_positive",
+          "true_class": 0,
+          "pred_class": 1,
+          "true_name": "Anomaly",
+          "pred_name": "Normal",
+          "dominant_chunk": "Texture",
+          "blame_scores": {
+            "Texture": 0.0,
+            "Structure": 0.0,
+            "Context": 0.0,
+            "Semantic": 0.0
+          },
+          "order_decomp": {
+            "Texture": {
+              "beta": 0.1412,
+              "linear_frac": 0.6943,
+              "linear_norm": 1.595,
+              "nonlinear_norm": 4.9742,
+              "dominant": "linear"
+            },
+            "Structure": {
+              "beta": 0.321,
+              "linear_frac": 0.2254,
+              "linear_norm": 1.18,
+              "nonlinear_norm": 12.6342,
+              "dominant": "nonlinear"
+            },
+            "Context": {
+              "beta": 0.2552,
+              "linear_frac": 0.829,
+              "linear_norm": 1.9799,
+              "nonlinear_norm": 1.6008,
+              "dominant": "linear"
+            },
+            "Semantic": {
+              "beta": 0.2541,
+              "linear_frac": 0.731,
+              "linear_norm": 1.8563,
+              "nonlinear_norm": 2.6884,
+              "dominant": "linear"
+            }
+          },
+          "centroid_norm": 7.7292,
+          "sigma_mean": 0.0299,
+          "chunk_attribution": {
+            "Texture": 0.0,
+            "Structure": 0.0,
+            "Context": 0.0,
+            "Semantic": 0.0
+          }
+        }
+      ],
+      "perturbation_report": [
+        {
+          "cluster_id": 0,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 7.9599,
+          "sigma_mean": 0.0486,
+          "sigma_max": 0.3265,
+          "effective_sigma": 0.0146
+        },
+        {
+          "cluster_id": 1,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 8.1795,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        },
+        {
+          "cluster_id": 2,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.7314,
+          "sigma_mean": 0.042,
+          "sigma_max": 0.4573,
+          "effective_sigma": 0.0126
+        },
+        {
+          "cluster_id": 3,
+          "correct_label": 1,
+          "correct_name": "Normal",
+          "n_generated": 40,
+          "centroid_norm": 8.1156,
+          "sigma_mean": 0.001,
+          "sigma_max": 0.001,
+          "effective_sigma": 0.0003
+        },
+        {
+          "cluster_id": 4,
+          "correct_label": 0,
+          "correct_name": "Anomaly",
+          "n_generated": 40,
+          "centroid_norm": 7.7292,
+          "sigma_mean": 0.0299,
+          "sigma_max": 0.2705,
+          "effective_sigma": 0.009
+        }
+      ],
+      "n_synthetic": 200,
+      "val_auc_after": 0.9948,
+      "val_acc_after": 0.9692,
+      "auc_delta": 0.0063,
+      "elapsed_s": 8.58,
+      "status": "ok"
+    }
+  ]
+}

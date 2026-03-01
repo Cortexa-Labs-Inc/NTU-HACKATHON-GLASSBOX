@@ -1,0 +1,9 @@
+{
+  "n_features": 128,
+  "hidden_dim": 64,
+  "n_layers": 2,
+  "n_classes": 2,
+  "seq_len": 8,
+  "val_acc": 0.9709,
+  "val_auc": 0.99
+}

@@ -1,0 +1,274 @@
+{
+  "Texture": {
+    "sub0": {
+      "label": "Texture.sub0 \u2014 broadly active, anomaly-leaning",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.4,
+      "anomaly_lift": 0.231,
+      "mean_routing": 0.0935,
+      "top_k_samples": [
+        "16_f000730.png",
+        "20_f000090.png",
+        "20_f000270.png",
+        "07_f001040.png",
+        "20_f000120.png"
+      ],
+      "top_k_weights": [
+        0.1268,
+        0.1114,
+        0.1113,
+        0.1108,
+        0.1106
+      ],
+      "interpretation": "A rarely selected sub-expert within Texture that activates 23pp more on Anomaly frames \u2014 likely detects unusual texture patterns."
+    },
+    "sub1": {
+      "label": "Texture.sub1 \u2014 highly specific, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.7,
+      "anomaly_lift": 0.531,
+      "mean_routing": 0.8945,
+      "top_k_samples": [
+        "01_f000990.png",
+        "01_f001020.png",
+        "01_f001000.png",
+        "01_f001030.png",
+        "01_f001040.png"
+      ],
+      "top_k_weights": [
+        0.9166,
+        0.9153,
+        0.9145,
+        0.9145,
+        0.9144
+      ],
+      "interpretation": "A dominant sub-expert within Texture that activates 53pp more on Anomaly frames \u2014 likely detects unusual texture patterns."
+    },
+    "sub2": {
+      "label": "Texture.sub2 \u2014 broadly active, class-neutral",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.2,
+      "anomaly_lift": 0.031,
+      "mean_routing": 0.0119,
+      "top_k_samples": [
+        "07_f000750.png",
+        "16_f000730.png",
+        "07_f000770.png",
+        "07_f000760.png",
+        "15_f000130.png"
+      ],
+      "top_k_weights": [
+        0.0215,
+        0.0192,
+        0.018,
+        0.0169,
+        0.0155
+      ],
+      "interpretation": "A rarely selected sub-expert within Texture that activates equally for both classes \u2014 captures class-invariant patterns."
+    }
+  },
+  "Structure": {
+    "sub0": {
+      "label": "Structure.sub0 \u2014 broadly active, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 1.0,
+      "anomaly_lift": 0.831,
+      "mean_routing": 0.3339,
+      "top_k_samples": [
+        "01_f001010.png",
+        "01_f001060.png",
+        "01_f000990.png",
+        "01_f001040.png",
+        "06_f000570.png"
+      ],
+      "top_k_weights": [
+        0.3793,
+        0.3786,
+        0.3776,
+        0.3774,
+        0.3767
+      ],
+      "interpretation": "A rarely selected sub-expert within Structure that activates 83pp more on Anomaly frames \u2014 likely detects unusual structure patterns."
+    },
+    "sub1": {
+      "label": "Structure.sub1 \u2014 moderately active, normal-leaning",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.0,
+      "anomaly_lift": -0.169,
+      "mean_routing": 0.6259,
+      "top_k_samples": [
+        "15_f000450.png",
+        "15_f000150.png",
+        "15_f000220.png",
+        "15_f000360.png",
+        "05_f000650.png"
+      ],
+      "top_k_weights": [
+        0.651,
+        0.6497,
+        0.6496,
+        0.6493,
+        0.6489
+      ],
+      "interpretation": "A co-active sub-expert within Structure that primarily activates on Normal frames \u2014 likely captures regular structure patterns."
+    },
+    "sub2": {
+      "label": "Structure.sub2 \u2014 broadly active, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 1.0,
+      "anomaly_lift": 0.831,
+      "mean_routing": 0.0402,
+      "top_k_samples": [
+        "01_f001000.png",
+        "01_f001010.png",
+        "06_f000570.png",
+        "06_f000590.png",
+        "01_f001060.png"
+      ],
+      "top_k_weights": [
+        0.048,
+        0.0468,
+        0.0462,
+        0.0462,
+        0.0461
+      ],
+      "interpretation": "A rarely selected sub-expert within Structure that activates 83pp more on Anomaly frames \u2014 likely detects unusual structure patterns."
+    }
+  },
+  "Context": {
+    "sub0": {
+      "label": "Context.sub0 \u2014 broadly active, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.55,
+      "anomaly_lift": 0.381,
+      "mean_routing": 0.0628,
+      "top_k_samples": [
+        "09_f000930.png",
+        "08_f000040.png",
+        "06_f000380.png",
+        "20_f000030.png",
+        "17_f000420.png"
+      ],
+      "top_k_weights": [
+        0.1969,
+        0.1952,
+        0.1888,
+        0.1886,
+        0.1863
+      ],
+      "interpretation": "A rarely selected sub-expert within Context that activates 38pp more on Anomaly frames \u2014 likely detects unusual context patterns."
+    },
+    "sub1": {
+      "label": "Context.sub1 \u2014 highly specific, normal-leaning",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.0,
+      "anomaly_lift": -0.169,
+      "mean_routing": 0.7489,
+      "top_k_samples": [
+        "08_f000110.png",
+        "08_f000120.png",
+        "08_f000140.png",
+        "08_f000130.png",
+        "08_f000490.png"
+      ],
+      "top_k_weights": [
+        0.9397,
+        0.9395,
+        0.9391,
+        0.939,
+        0.939
+      ],
+      "interpretation": "A dominant sub-expert within Context that primarily activates on Normal frames \u2014 likely captures regular context patterns."
+    },
+    "sub2": {
+      "label": "Context.sub2 \u2014 broadly active, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 1.0,
+      "anomaly_lift": 0.831,
+      "mean_routing": 0.1883,
+      "top_k_samples": [
+        "16_f000650.png",
+        "09_f000150.png",
+        "16_f000640.png",
+        "09_f000530.png",
+        "20_f000230.png"
+      ],
+      "top_k_weights": [
+        0.819,
+        0.8187,
+        0.8184,
+        0.8179,
+        0.8165
+      ],
+      "interpretation": "A rarely selected sub-expert within Context that activates 83pp more on Anomaly frames \u2014 likely detects unusual context patterns."
+    }
+  },
+  "Semantic": {
+    "sub0": {
+      "label": "Semantic.sub0 \u2014 highly specific, normal-leaning",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.05,
+      "anomaly_lift": -0.119,
+      "mean_routing": 0.7656,
+      "top_k_samples": [
+        "18_f000080.png",
+        "15_f000990.png",
+        "02_f000900.png",
+        "01_f001270.png",
+        "02_f000610.png"
+      ],
+      "top_k_weights": [
+        0.9575,
+        0.9564,
+        0.9557,
+        0.9556,
+        0.9556
+      ],
+      "interpretation": "A dominant sub-expert within Semantic that primarily activates on Normal frames \u2014 likely captures regular semantic patterns."
+    },
+    "sub1": {
+      "label": "Semantic.sub1 \u2014 broadly active, anomaly-biased",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 1.0,
+      "anomaly_lift": 0.831,
+      "mean_routing": 0.1211,
+      "top_k_samples": [
+        "04_f000420.png",
+        "09_f000150.png",
+        "16_f000730.png",
+        "04_f000650.png",
+        "09_f000560.png"
+      ],
+      "top_k_weights": [
+        0.7784,
+        0.7781,
+        0.7777,
+        0.7775,
+        0.777
+      ],
+      "interpretation": "A rarely selected sub-expert within Semantic that activates 83pp more on Anomaly frames \u2014 likely detects unusual semantic patterns."
+    },
+    "sub2": {
+      "label": "Semantic.sub2 \u2014 broadly active, normal-leaning",
+      "dominant_class": "Anomaly",
+      "anomaly_frac": 0.25,
+      "anomaly_lift": 0.081,
+      "mean_routing": 0.1133,
+      "top_k_samples": [
+        "10_f000550.png",
+        "13_f000400.png",
+        "19_f000110.png",
+        "10_f000760.png",
+        "07_f000790.png"
+      ],
+      "top_k_weights": [
+        0.6827,
+        0.6597,
+        0.6543,
+        0.6121,
+        0.6085
+      ],
+      "interpretation": "A rarely selected sub-expert within Semantic that slightly anomaly-biased (+8pp) \u2014 may respond to borderline semantic irregularities."
+    }
+  }
+}
