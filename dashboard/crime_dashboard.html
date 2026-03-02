@@ -409,15 +409,14 @@ function mkHealChart() {
   healChart = new Chart(ctx, {
     type: 'line',
     data: { labels: [], datasets: [
-      { label: 'Val AUC (before)', data: [], borderColor: '#6366f1', tension: .35,
-        pointRadius: 4, fill: false },
-      { label: 'Val AUC (after)',  data: [], borderColor: '#10b981', tension: .35,
-        pointRadius: 4, fill: false },
+      { label: 'Val AUC trajectory', data: [], borderColor: '#10b981', tension: .35,
+        pointRadius: 5, pointBackgroundColor: '#10b981', fill: false,
+        borderWidth: 2 },
     ]},
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: { y: { min: 0, max: 1, grid: { color: '#1e2d45' },
-                     ticks: { color: '#6b7280' } },
+      scales: { y: { min: 0.9, max: 1, grid: { color: '#1e2d45' },
+                     ticks: { color: '#6b7280', format: { style: 'percent' } } },
                 x: { grid: { color: '#1e2d45' }, ticks: { color: '#6b7280' } }},
       plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
     }
@@ -655,12 +654,13 @@ async function loadHealHistory() {
     const d = await api('/heal_history');
     if (!d.history || d.history.length === 0) return;
 
-    // Update chart
+    // Update chart — single continuous trajectory: start → after R1 → after R2 → ...
     if (!healChart) mkHealChart();
-    const labels = d.history.map(r => `R${r.round}`);
+    const labels = ['Start', ...d.history.map(r => `After R${r.round}`)];
+    const aucs   = [d.history[0].val_auc_before,
+                    ...d.history.map(r => r.val_auc_after ?? r.val_auc_before)];
     healChart.data.labels = labels;
-    healChart.data.datasets[0].data = d.history.map(r => r.val_auc_before);
-    healChart.data.datasets[1].data = d.history.map(r => r.val_auc_after || r.val_auc_before);
+    healChart.data.datasets[0].data = aucs;
     healChart.update();
 
     const last = d.history[d.history.length - 1];

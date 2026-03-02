@@ -148,6 +148,14 @@ def _load_artefacts():
         _X_val   = d['X_val']
         _y_val   = d['y_val']
 
+    # Load pre-computed heal history from training run
+    global _heal_history
+    train_hist_path = os.path.join(ARTEFACT_DIR, 'crime_training_history.json')
+    if os.path.exists(train_hist_path):
+        with open(train_hist_path) as f:
+            _heal_history = json.load(f).get('healing', [])
+        print(f"[crime_app] Loaded {len(_heal_history)} healing rounds from training history.")
+
     # Pre-build failure map on val features
     if _model is not None and _X_val is not None:
         _detector = FailureModeDetector(
