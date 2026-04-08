@@ -1,0 +1,17 @@
+name: Make repo private
+on:
+  schedule:
+    - cron: '0 14 22 5 *'   # May 22nd at 2pm UTC (9am CDT)
+  workflow_dispatch: {}       # allow manual trigger for testing
+
+jobs:
+  privatize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make repository private
+        env:
+          GH_TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
+        run: |
+          gh repo edit Cortexa-Labs-Inc/NTU-HACKATHON-GLASSBOX \
+            --visibility private \
+            --accept-visibility-change-consequences
